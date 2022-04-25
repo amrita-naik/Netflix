@@ -12,6 +12,7 @@ router.post('/register', async (req, res) => {
     })
     try{
         const user = await newUser.save()
+        res.status(200).json(user)
     } catch(err){
         console.log(err)
     }
@@ -29,6 +30,9 @@ router.post('/login', async (req, res) => {
         originalPassword !== req.body.password && res.status(401).json("Wrong email or password");
 
         const accessToken = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.SECRET_KEY, {expiresIn: '5d'})
+        
+        const { password, ...info } = user._doc;
+        res.status(200).json({ ...info, accessToken });
 
         res.status(200).json(accessToken)
 

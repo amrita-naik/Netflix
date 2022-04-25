@@ -19,13 +19,10 @@ const Home = ({type}) => {
                   }`,
                   {
                     headers: {
-                        token:
-                        "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+                        token: "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
                       },
-                  }
-                );
-                setLists
-                (res.data)
+                  });
+                setLists(res.data)
             }catch(err){
                 console.log(err)
             }
@@ -37,10 +34,9 @@ const Home = ({type}) => {
         <div className='home'>
             <Navbar />
             <Featured type={type} setGenre={setGenre} />
-      {lists.map((list) => (
-        <List list={list} />
-      ))}
-
+            {lists.map((list) => (
+                <List list={list} />
+            ))}
         </div>
     )
 }
