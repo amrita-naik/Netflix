@@ -12,7 +12,7 @@ router.post('/register', async (req, res) => {
     })
     try{
         const user = await newUser.save()
-        res.status(200).json(user)
+        res.status(200).json(user)  
     } catch(err){
         console.log(err)
     }
@@ -33,8 +33,6 @@ router.post('/login', async (req, res) => {
         
         const { password, ...info } = user._doc;
         res.status(200).json({ ...info, accessToken });
-
-        res.status(200).json(accessToken)
 
     }catch(err){
         console.log(err)

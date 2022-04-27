@@ -60,13 +60,13 @@ router.get('/random', verify, async (req, res) => {
     const type = req.query.type
     let movie;
     try {
-        if(type === series){
-            movie = await aggregate([
+        if(type === "series"){
+            movie = await MovieModel.aggregate([
                 {$match: {isSeries: true}},
                 {$sample: {size: 1}}
             ])
         } else {
-            movie = await aggregate([
+            movie = await MovieModel.aggregate([
                 {$match: {isSeries: false}},
                 {$sample: {size: 1}}
             ])
@@ -74,6 +74,7 @@ router.get('/random', verify, async (req, res) => {
         res.status(200).json(movie)
     } catch (error) {
         res.status(500).json(error)
+        console.log(error)
     }
 })
 
